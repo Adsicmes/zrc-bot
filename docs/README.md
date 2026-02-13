@@ -7,6 +7,7 @@
 | 文档 | 说明 |
 |------|------|
 | [设计考虑](design.md) | 架构决策、扩展点、约束 |
+| [项目规约](conventions.md) | 文案模板（MsgTemplates）等统一约定 |
 | [设计草稿](design/drafts/README.md) | 插件/功能拟设计草稿、提案 |
 | [数据库](database.md) | SQLAlchemy 2.0 + SQLite 集成与用法 |
 | [运行与架构](runtime.md) | 启动流程、事件流、生命周期 |
