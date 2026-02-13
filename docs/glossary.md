@@ -12,6 +12,7 @@
 | root | 最高权限账号，在 config.yaml 中配置。 |
 | command_registry / filter_registry | NcatBot 插件系统中用于注册命令与过滤器的对象。 |
 | 单向依赖 | 设计原则：模块间依赖为单向、无环（DAG），禁止循环引用。见 [设计考虑](design.md#依赖原则单向依赖)。 |
+| 提交约定 | Commit 信息使用中文。见 [设计考虑](design.md#提交约定)。 |
 
 ---
 

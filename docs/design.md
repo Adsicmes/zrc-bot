@@ -23,6 +23,10 @@
 - 插件统一放在 `plugins/`，通过 NcatBot 的 PluginLoader 加载。
 - 内置插件（SystemManager、UnifiedRegistry）由框架加载，当前无配置关闭方式。
 
+## 提交约定
+
+- **Commit 使用中文**：提交信息（subject、body）使用中文书写，便于项目内阅读与检索。
+
 ---
 
 *随项目演进补充设计理由与取舍。*
