@@ -7,6 +7,8 @@
 | 文档 | 说明 |
 |------|------|
 | [设计考虑](design.md) | 架构决策、扩展点、约束 |
+| [设计草稿](design/drafts/README.md) | 插件/功能拟设计草稿、提案 |
+| [数据库](database.md) | SQLAlchemy 2.0 + SQLite 集成与用法 |
 | [运行与架构](runtime.md) | 启动流程、事件流、生命周期 |
 | [权限说明](permissions.md) | 权限体系、角色、命令权限 |
 | [名词表](glossary.md) | 专有术语、缩写、概念定义 |
