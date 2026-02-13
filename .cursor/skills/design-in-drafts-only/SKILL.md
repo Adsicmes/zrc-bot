@@ -18,7 +18,7 @@ description: When designing plugins or features, draft and iterate only in docs/
 ### 设计阶段允许做的
 
 - 在 **`docs/design/drafts/`** 下新建或修改草稿文档（如 `插件名.md`、`功能简述.md`）。
-- 在草稿中写：目标、背景、命令/接口设想、权限、配置、与现有插件关系、TBD。
+- 在草稿中写：目标、背景、命令/接口设想、权限、配置、与现有插件关系、TBD；**文末须注明「最后更新时间」**（格式 `最后更新：YYYY-MM-DD HH:MM`，精确到分钟），每次修改草稿时同步更新。
 - 根据讨论多次修改同一份草稿，或拆分/合并草稿文件。
 - 引用或链接 `docs/` 内其他文档（如 design.md、plugins/、glossary.md）。
 
@@ -42,6 +42,7 @@ description: When designing plugins or features, draft and iterate only in docs/
 
 - 命名：按 [docs/design/drafts/README.md](docs/design/drafts/README.md) 的约定（插件名.md、主题-日期.md 等）。
 - 内容建议：目标与背景、命令/接口、权限与配置、与现有插件关系、TBD；详见草案目录内 README。
+- **最后更新时间**：草稿文末必须有一行「最后更新：YYYY-MM-DD HH:MM」（精确到分钟），每次对草稿内容做修改时同步更新。
 
 ## 小结
 
