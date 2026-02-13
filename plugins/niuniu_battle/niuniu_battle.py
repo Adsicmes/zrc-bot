@@ -59,7 +59,7 @@ class NiuNiuBattleEnabledFilter(BaseFilter):
 
 # 触发词（可后续从配置读取）
 TRIGGER_DAO = ("导",)
-TRIGGER_RI = ("日", "草", "操")
+TRIGGER_RI = ("日群友", "草群友", "操群友")
 TRIGGER_MY = ("我的牛牛", "我的牛子")
 TRIGGER_RANK = ("牛牛排行榜",)
 TRIGGER_VIEW = ("查看牛牛",)

@@ -5,6 +5,7 @@
 | 插件 | 说明 | 文档 |
 |------|------|------|
 | HelloPlugin | 示例：hello 命令与私聊回复 | [hello_plugin.md](hello_plugin.md) |
+| NiuNiuBattle | 牛牛大作战：导/日、查询、排行榜 | [niuniu_battle.md](niuniu_battle.md) · [用户说明](niuniu_battle_用户说明.md) |
 
 ---
 
