@@ -19,7 +19,8 @@ description: Centralizes all project documentation in docs/. Use when adding or 
 | **插件用法** | 每个插件的命令、参数、示例、适用场景 | `docs/plugins/`，每插件一文档 |
 | **权限** | 权限体系、角色、谁可用哪些命令/功能 | `docs/permissions.md` 或 `docs/权限.md` |
 | **独特名词** | 项目内专有术语、缩写、概念定义 | `docs/glossary.md` 或 `docs/名词表.md` |
-| **设计考虑** | 架构决策、取舍、扩展点、约束 | `docs/design.md` 或 `docs/设计.md` |
+| **设计考虑** | 架构决策、取舍、扩展点、约束 | `docs/design.md` |
+| **拟设计草稿** | 插件/功能设计草案、提案、RFC | `docs/design/drafts/`，按插件名或主题命名 |
 | **运行思路** | 启动流程、事件流、生命周期、依赖关系 | `docs/runtime.md` 或 `docs/运行与架构.md` |
 | **Wiki 索引** | 总览与导航，便于发现所有文档 | `docs/README.md` 或 `docs/index.md` |
 

@@ -5,7 +5,11 @@
 ```
 docs/
 ├── README.md           # Wiki 索引与导航
-├── design.md           # 设计考虑与架构决策
+├── design.md           # 设计考虑与架构决策（已定稿）
+├── design/             # 设计扩展
+│   ├── README.md       # 设计目录说明
+│   └── drafts/         # 拟设计草稿（插件/功能提案）
+│       └── README.md   # 草稿命名与用途说明
 ├── runtime.md          # 运行思路、生命周期、事件流
 ├── permissions.md      # 权限体系与角色
 ├── glossary.md         # 独特名词与术语表
@@ -53,6 +57,7 @@ docs/
 
 ## 设计文档要点（design.md）
 
+- **依赖原则**：单向依赖（模块间依赖为 DAG，禁止循环引用）；基础定义放底层，上层只引用底层。
 - 为什么选用 NcatBot、NapCat。
 - 插件划分与职责边界。
 - 扩展点与不支持的场景。
