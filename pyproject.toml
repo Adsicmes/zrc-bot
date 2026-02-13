@@ -6,4 +6,5 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "ncatbot>=4.4.1.post1",
+    "sqlalchemy>=2.0",
 ]
