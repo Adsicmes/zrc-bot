@@ -13,3 +13,6 @@ wheels/
 data/
 logs/
 napcat/
+
+# Local env (keep .env.example in repo)
+.env

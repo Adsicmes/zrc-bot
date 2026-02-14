@@ -1,6 +1,7 @@
 # docker-compose.yml
 # 与 napcat 联用时，请将 config.yaml 中 napcat.ws_uri 改为 ws://napcat:3001、
 # napcat.webui_uri 改为 http://napcat:6099，或挂载已修改的配置文件。
+# 可选：在项目根目录创建 .env，设置 NAPCAT_UID、NAPCAT_GID（参考 .env.example）。
 version: "3"
 services:
   napcat:
@@ -11,9 +12,15 @@ services:
     ports:
       - "36099:6099"
     container_name: napcat
-    network_mode: bridge
     restart: always
     image: mlikiowa/napcat-docker:latest
+    networks:
+      - zrc-net
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   zrc-bot:
     build: .
@@ -25,3 +32,14 @@ services:
       - ./config.yaml:/app/config.yaml
       - ./data:/app/data
       - ./logs:/app/logs
+    networks:
+      - zrc-net
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  zrc-net:
+    driver: bridge

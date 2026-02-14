@@ -102,7 +102,14 @@ docker compose down
 
 请勿删除上述目录；首次部署前可先创建空目录：`mkdir -p data logs`。
 
-### 6. 仅构建 zrc-bot 镜像（不包含 Napcat）
+### 6. 环境变量与可选优化
+
+- **环境变量**：在项目根目录创建 `.env`（可复制 `.env.example` 为 `.env`），设置 `NAPCAT_UID`、`NAPCAT_GID` 等，Compose 会用于替换 `docker-compose.yml` 中的 `${VAR}`。请勿提交 `.env`（已加入 `.gitignore`）。
+- **日志**：当前已为两服务配置 `logging`（json-file，单文件 10MB、最多 3 个），避免容器日志占满磁盘。
+- **资源限制**（可选）：若需限制内存，可在服务下增加 `deploy.resources.limits.memory: "512m"`（Compose 3.x）或 `mem_limit: 512m`。
+- **健康检查**：若 Napcat 镜像支持 `HEALTHCHECK`，可配合 `depends_on.napcat.condition: service_healthy` 让 zrc-bot 在 Napcat 就绪后再启动（需 Compose 2.1+）。
+
+### 7. 仅构建 zrc-bot 镜像（不包含 Napcat）
 
 若已有 Napcat 或使用其他方式部署 Napcat，可仅构建并运行 zrc-bot：
 
