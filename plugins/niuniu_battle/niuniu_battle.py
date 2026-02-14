@@ -131,19 +131,15 @@ class NiuNiuBattlePlugin(NcatBotPlugin):
 
     @on_message
     @group_filter
-    @_niuniu_enabled_filter
-    async def on_group_niuniu(self, event: GroupMessageEvent):
+    async def on_group_niuniu_enable_disable(self, event: GroupMessageEvent):
+        """开启/关闭牛牛大作战：不要求本群已在可用列表，否则管理员无法在未开启的群里首次开启。"""
         if not isinstance(event, GroupMessageEvent):
             return
         text = _strip_text(event)
         if not text:
             return
-
-        # 私聊不处理（group_filter 已保证是群消息）
         group_id = str(event.group_id)
-        user_id = str(event.user_id)
 
-        # 开启/关闭牛牛大作战（仅管理员，当前群）
         if any(text == t for t in TRIGGER_ON):
             if not _is_admin(event):
                 await event.reply(MsgTemplates.pick(msg_tpl.NEED_ADMIN), at=True)
@@ -165,6 +161,20 @@ class NiuNiuBattlePlugin(NcatBotPlugin):
             save_plugin_config(self.name, self.config)
             await event.reply(MsgTemplates.pick(msg_tpl.GROUP_DISABLED), at=True)
             return
+
+    @on_message
+    @group_filter
+    @_niuniu_enabled_filter
+    async def on_group_niuniu(self, event: GroupMessageEvent):
+        if not isinstance(event, GroupMessageEvent):
+            return
+        text = _strip_text(event)
+        if not text:
+            return
+
+        # 私聊不处理（group_filter 已保证是群消息）
+        group_id = str(event.group_id)
+        user_id = str(event.user_id)
 
         # 导
         if any(text == t or text.startswith(t) for t in TRIGGER_DAO):
