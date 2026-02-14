@@ -1,13 +1,9 @@
 # docker-compose.yml
 # 与 napcat 联用时，请将 config.yaml 中 napcat.ws_uri 改为 ws://napcat:3001、
 # napcat.webui_uri 改为 http://napcat:6099，或挂载已修改的配置文件。
-# 可选：在项目根目录创建 .env，设置 NAPCAT_UID、NAPCAT_GID（参考 .env.example）。
-version: "3"
+# 若需为 Napcat 设置 NAPCAT_UID/NAPCAT_GID，可在本服务下添加 environment 并 export 或写死。
 services:
   napcat:
-    environment:
-      - NAPCAT_UID=${NAPCAT_UID}
-      - NAPCAT_GID=${NAPCAT_GID}
     # 仅暴露 Web 管理界面；3000/3001 供同网络内 zrc-bot 使用，不映射到宿主机
     ports:
       - "36099:6099"
