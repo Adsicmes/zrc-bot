@@ -6,7 +6,7 @@ WORKDIR /app
 
 # 可选：国内 PyPI 镜像（构建时生效，可按需取消注释或替换）
 ENV UV_DEFAULT_INDEX=https://pypi.tuna.tsinghua.edu.cn/simple
-ENV UV_PYTHON_INSTALL_MIRROR=https://mirrors.aliyun.com/python-build-standalone/
+ENV UV_PYTHON_INSTALL_MIRROR=https://ghfast.top/https://github.com/astral-sh/python-build-standalone/releases/download
 
 # 先复制依赖声明，利用层缓存
 COPY pyproject.toml uv.lock ./
