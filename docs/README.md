@@ -6,6 +6,7 @@
 
 | 文档 | 说明 |
 |------|------|
+| [部署文档](deploy.md) | Docker / Docker Compose 部署步骤与配置说明 |
 | [设计考虑](design.md) | 架构决策、扩展点、约束 |
 | [项目规约](conventions.md) | 文案模板（MsgTemplates）等统一约定 |
 | [设计草稿](design/drafts/README.md) | 插件/功能拟设计草稿、提案 |

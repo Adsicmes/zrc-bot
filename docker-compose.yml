@@ -1,15 +1,27 @@
 # docker-compose.yml
+# 与 napcat 联用时，请将 config.yaml 中 napcat.ws_uri 改为 ws://napcat:3001、
+# napcat.webui_uri 改为 http://napcat:6099，或挂载已修改的配置文件。
 version: "3"
 services:
   napcat:
     environment:
       - NAPCAT_UID=${NAPCAT_UID}
       - NAPCAT_GID=${NAPCAT_GID}
+    # 仅暴露 Web 管理界面；3000/3001 供同网络内 zrc-bot 使用，不映射到宿主机
     ports:
-      - 3000:3000
-      - 3001:3001
-      - 6099:6099
+      - "36099:6099"
     container_name: napcat
     network_mode: bridge
     restart: always
     image: mlikiowa/napcat-docker:latest
+
+  zrc-bot:
+    build: .
+    container_name: zrc-bot
+    restart: always
+    depends_on:
+      - napcat
+    volumes:
+      - ./config.yaml:/app/config.yaml
+      - ./data:/app/data
+      - ./logs:/app/logs
