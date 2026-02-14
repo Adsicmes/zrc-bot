@@ -10,6 +10,11 @@ services:
     container_name: napcat
     restart: always
     image: mlikiowa/napcat-docker:latest
+    volumes:
+      # 配置文件（含 webui.json 等），宿主机可编辑
+      - ./napcat/config:/app/napcat/config
+      # QQ 账号数据目录，持久化登录状态
+      - ./napcat/qq:/app/.config/QQ
     networks:
       - zrc-net
     logging:
