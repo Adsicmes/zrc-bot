@@ -22,12 +22,12 @@
 ## 权限与过滤
 
 - **仅群聊**：私聊不响应。
-- **可用群聊**：仅当当前群在「可用群聊」列表内时才响应上述指令；列表存于 **配置文件** `data/NiuNiuBattle/config.json`（`enabled_group_ids`）。列表为空时默认**全部不开放**。
+- **可用群聊**：仅当当前群在「可用群聊」列表内时才响应上述指令；列表存于 **NcatBot 插件配置** `data/NiuNiuBattle/NiuNiuBattle.yaml`（配置项 `enabled_group_ids`）。列表为空时默认**全部不开放**。
 - **管理员**：需 NcatBot 的 admin/root 权限，用于 设置牛牛、开启/关闭牛牛大作战。
 
 ## 配置与数据
 
-- **可用群聊**：`data/NiuNiuBattle/config.json`，键 `enabled_group_ids`（群 ID 列表）；通过「开启/关闭牛牛大作战」修改并写回。
+- **可用群聊**：插件配置项 `enabled_group_ids`（群 ID 列表），存于 `data/NiuNiuBattle/NiuNiuBattle.yaml`。通过「开启/关闭牛牛大作战」修改并写回；也可用系统命令 `/set_config NiuNiuBattle enabled_group_ids [...]` 或 `/cfg` 修改。参见 [插件配置项](https://docs.ncatbot.xyz/guide/plugin-config/)。
 - **持久化**：使用项目 `db` 包，表 `niuniu_user`（群+用户+长度）、`niuniu_daily_count`（群+用户+日期+设了次数）。
 
 ## 设计文档

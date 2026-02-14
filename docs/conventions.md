@@ -53,4 +53,26 @@ await event.reply(MsgTemplates.pick(ERR_PERMISSION), at=True)  # 无占位符则
 
 ---
 
+## 插件配置项：NcatBot 官方配置管理
+
+**规约**：插件的可持久化配置项统一使用 [NcatBot 插件配置项](https://docs.ncatbot.xyz/guide/plugin-config/) 机制，不自行维护独立配置文件（如单独 json/yaml）。
+
+### 要点
+
+- 在 `on_load` 中用 `self.register_config("配置项名", 默认值)` 注册。
+- 通过 `self.config["配置项名"]` 读取；运行时修改后需自行写回（见下）。
+- 配置存储在 `data/<插件名>/<插件名>.yaml`，与 NcatBot 一致，Bot 退出后可手动编辑，下次加载会覆盖默认值。
+- 用户可通过系统命令 `/set_config <插件名> <配置项名> <新值>` 或 `/cfg` 别名修改配置。
+
+### 程序内修改配置并持久化
+
+若插件在运行中修改了 `self.config`，需将整份 `self.config` 写回 `data/<插件名>/<插件名>.yaml`，否则重启后会被默认值或旧文件覆盖。可复用项目内已有的写回方式（例如牛牛大作战的 `config_loader.save_plugin_config(self.name, self.config)`），或按同一路径与 YAML 格式自行实现。
+
+### 参考
+
+- 官方文档：[插件配置项 | NcatBot 文档](https://docs.ncatbot.xyz/guide/plugin-config/)
+- 本项示例：`plugins/niuniu_battle`（`register_config("enabled_group_ids", [])`、`save_plugin_config` 写回）
+
+---
+
 *新增规约时请在此文档追加并注明适用范围。*

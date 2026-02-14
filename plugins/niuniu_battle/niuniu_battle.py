@@ -1,8 +1,11 @@
-"""牛牛大作战 (NiuNiuBattle) 插件：仅群聊，可用群聊由配置文件控制。"""
+"""牛牛大作战 (NiuNiuBattle) 插件：仅群聊，可用群聊由插件配置项控制。"""
 
 from __future__ import annotations
 
+import json
 import random
+from pathlib import Path
+
 from ncatbot.core.event import GroupMessageEvent
 from ncatbot.core.event.message_segment import At
 from ncatbot.plugin_system import NcatBotPlugin
@@ -16,11 +19,7 @@ from ncatbot.utils.assets.literals import PermissionGroup
 from db import get_session
 from utils import MsgTemplates
 from plugins.niuniu_battle import messages as msg_tpl
-from plugins.niuniu_battle.config_loader import (
-    add_group,
-    is_group_enabled,
-    remove_group,
-)
+from plugins.niuniu_battle.config_loader import save_plugin_config
 from plugins.niuniu_battle.service import (
     INITIAL_LENGTH,
     LENGTH_MAX,
@@ -33,6 +32,20 @@ from plugins.niuniu_battle.service import (
     set_daily_count,
     set_length,
 )
+
+
+# 供过滤器读取当前插件 config（在 on_load 中赋值）
+_plugin_ref: NcatBotPlugin | None = None
+
+
+def _is_group_enabled(group_id: str) -> bool:
+    """当前群是否在可用群聊列表中（读自插件 config）。"""
+    if _plugin_ref is None:
+        return False
+    ids = _plugin_ref.config.get("enabled_group_ids")
+    if ids is None:
+        return False
+    return group_id in [str(x) for x in ids]
 
 
 def _is_admin(event: GroupMessageEvent) -> bool:
@@ -54,7 +67,7 @@ class NiuNiuBattleEnabledFilter(BaseFilter):
         gid = getattr(event, "group_id", None)
         if not gid:
             return False
-        return is_group_enabled(str(gid))
+        return _is_group_enabled(str(gid))
 
 
 # 触发词（可后续从配置读取）
@@ -99,7 +112,22 @@ class NiuNiuBattlePlugin(NcatBotPlugin):
     dependencies = {}
 
     async def on_load(self):
-        pass
+        global _plugin_ref
+        self.register_config("enabled_group_ids", [])
+        # 从旧版 config.json 迁移到 NcatBot 插件配置 yaml
+        _legacy_path = Path("data") / "NiuNiuBattle" / "config.json"
+        if _legacy_path.exists():
+            try:
+                with open(_legacy_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                legacy_ids = data.get("enabled_group_ids")
+                if legacy_ids is not None:
+                    self.config["enabled_group_ids"] = [str(x) for x in legacy_ids]
+                    save_plugin_config(self.name, self.config)
+                _legacy_path.unlink()
+            except (json.JSONDecodeError, OSError):
+                pass
+        _plugin_ref = self
 
     @on_message
     @group_filter
@@ -120,14 +148,21 @@ class NiuNiuBattlePlugin(NcatBotPlugin):
             if not _is_admin(event):
                 await event.reply(MsgTemplates.pick(msg_tpl.NEED_ADMIN), at=True)
                 return
-            add_group(group_id)
+            ids = self.config.get("enabled_group_ids") or []
+            ids = [str(x) for x in ids]
+            if group_id not in ids:
+                ids.append(group_id)
+                self.config["enabled_group_ids"] = ids
+                save_plugin_config(self.name, self.config)
             await event.reply(MsgTemplates.pick(msg_tpl.GROUP_ENABLED), at=True)
             return
         if any(text == t for t in TRIGGER_OFF):
             if not _is_admin(event):
                 await event.reply(MsgTemplates.pick(msg_tpl.NEED_ADMIN), at=True)
                 return
-            remove_group(group_id)
+            ids = [x for x in (self.config.get("enabled_group_ids") or []) if str(x) != group_id]
+            self.config["enabled_group_ids"] = ids
+            save_plugin_config(self.name, self.config)
             await event.reply(MsgTemplates.pick(msg_tpl.GROUP_DISABLED), at=True)
             return
 
