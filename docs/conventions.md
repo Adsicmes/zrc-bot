@@ -47,6 +47,11 @@
 - 标准结构示例：`plugins/niuniu_battle`（`__init__.py`、`niuniu_battle.py`、`messages.py`、`service.py`、`config_loader.py`）
 - 极简示例：`plugins/hello_plugin`（单入口文件 + `__init__.py`）
 
+### 插件 meta 与 help 文本
+
+- **插件实例须提供 meta 字段**：插件类（或其实例）上须有 **meta** 属性，用于暴露元信息及可被 help 等统一读取的说明。结构由各插件自定，但需至少支持下述 help 约定。
+- **help 插件取帮助文本**：help 插件在展示某插件的帮助时，应**仅**从该插件实例的 **`meta.help.markdown`** 属性读取帮助正文（Markdown 字符串）。**不得**在运行时代码中读取 `docs/` 目录——docs 仅作项目文档，不是执行期的一部分。若 `meta`、`meta.help` 或 `meta.help.markdown` 不存在，则仅展示插件 name/description 或提示无详细说明。
+
 ---
 
 ## 发送给用户的文案：MsgTemplates
